@@ -1,0 +1,51 @@
+name: 'Jenkins Trigger'
+description: 'A Github Action to trigger Jenkins jobs and monitor for completion'
+inputs:
+  jenkins_url:
+    description: 'Jenkins URL including http/https protocol'
+    required: true
+  api_token:
+    description: 'Jenkins generic webhook token'
+    required: true
+  job_name:
+    description: 'Jenkins job name'
+    required: true
+  job_param:
+    description: 'Job parameters, separated by a comma, to provide to a Jenkins workflow, e.g. "GIT_REPO_URL=https://github.com/lewijacn/opensearch-migrations.git,GIT_BRANCH=main". Job name will automatically be added as a parameter.'
+    required: false
+  job_timeout_minutes:
+    description: 'Max time (minutes) this Github Action will wait for completion'
+    required: false
+    default: "60"
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/setup-python@v5
+      with:
+        python-version: 3.11
+    - name: Install dependencies for python webhook
+      working-directory: ./webhook-trigger
+      run: |
+        python3 -m pip install --upgrade pipenv
+        pipenv install --deploy
+      shell: bash
+    - name: Trigger jenkins job and wait for completion
+      working-directory: ./webhook-trigger
+      run: |
+        if [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
+          branch_name="${{ github.event.pull_request.head.ref }}"
+          pr_repo_url="https://github.com/${{ github.event.pull_request.head.repo.full_name }}.git"
+        else
+          branch_name="${{ github.ref_name }}"
+          pr_repo_url="https://github.com/${{ github.repository }}.git"
+        fi
+        echo "Running jenkins test on repo: $pr_repo_url and branch: $branch_name"
+        pipenv run python3 default_webhook_trigger.py \
+          --jenkins_url="${{ inputs.jenkins_url }}" \
+          --pipeline_token="${{ inputs.api_token }}" \
+          --job_name="${{ inputs.job_name }}" \
+          --job_param="${{ inputs.job_param }}"
+      shell: bash
+branding:
+  icon: 'check-circle'
+  color: 'green'
