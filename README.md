@@ -2,9 +2,6 @@
 
 A Github Action to trigger Jenkins jobs and monitor for completion
 
-```yaml
-```
-
 ## Usage
 
 ```yml
@@ -15,13 +12,16 @@ on:
     types: [opened, synchronize, reopened]
 
 jobs:
-  publish:
+  trigger-jenkins:
     runs-on: ubuntu-latest
     steps:
       - uses: lewijacn/trigger-jenkins@v1.0
         with:
-          checklist-items: |
-            Added unit test(s)
+          jenkins_url: 'https://test-jenkins-url'
+          job_name: 'test-job'
+          api_token: "${{ secrets.WEBHOOK_TOKEN }}"
+          job_param: "STAGE=dev,BRANCH=main"
+          job_timeout_minutes: '2'
 ```
 
 # Changelog
