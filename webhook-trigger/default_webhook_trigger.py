@@ -136,7 +136,14 @@ def trigger_and_wait_for_job(jenkins_url: str, pipeline_token: str, payload: dic
             response.raise_for_status()
 
     except requests.exceptions.RequestException as e:
-        response_body = "{}" if response is None else response.json()
+        if response is None:
+            response_body = "{}"
+        else:
+            try:
+                response_body = response.json()
+            except Exception as e:
+                logging.warning(f"Unable to parse trigger request response with error: {e}")
+                response_body = "{}"
         logging.error(f"Failed to trigger webhook for URL: {jenkins_webhook_url} and payload: {payload} with "
                       f"response body: {response_body}")
         logging.info(f"{action_result_name}: FAILURE")
