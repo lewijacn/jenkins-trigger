@@ -4,8 +4,6 @@ COPY entrypoint.sh /webhook-trigger
 WORKDIR /webhook-trigger
 
 RUN python3 -m pip install --upgrade pipenv
-RUN pipenv install --deploy
-
-RUN chmod +x entrypoint.sh
+RUN pipenv install --deploy --system
 
 CMD ["./entrypoint.sh"]
