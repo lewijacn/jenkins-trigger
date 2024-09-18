@@ -11,12 +11,7 @@ else
 fi
 pr_repo_url="https://github.com/${GITHUB_REPOSITORY}.git"
 
-
-cd /webhook-trigger || exit
 echo "Running jenkins test on repo: $pr_repo_url and branch: $branch_name"
-pipenv run pip list
-pip list
-ls
 python3 default_webhook_trigger.py \
   --jenkins_url="${INPUT_JENKINS_URL}" \
   --pipeline_token="${INPUT_API_TOKEN}" \
