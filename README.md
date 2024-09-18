@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Jenkins Job Trigger and Monitor
-        uses: lewijacn/jenkins-trigger@1.0.1
+        uses: lewijacn/jenkins-trigger@1.0.2
         with:
           jenkins_url: 'https://test-jenkins-url'
           job_name: 'test-job'
