@@ -147,6 +147,8 @@ def trigger_and_wait_for_job(jenkins_url: str, pipeline_token: str, payload: dic
 
 
 def parse_key_value_pairs(input_str):
+    if not input_str:
+        return {}
     kv_pairs = input_str.split(',')
     kv_dict = {}
     for pair in kv_pairs:

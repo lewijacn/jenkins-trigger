@@ -13,6 +13,7 @@ inputs:
   job_params:
     description: 'Job parameters, separated by a comma, to provide to a Jenkins workflow, e.g. "GIT_REPO_URL=https://github.com/lewijacn/opensearch-migrations.git,GIT_BRANCH=main". Job name will automatically be added as a parameter.'
     required: false
+    default: ""
   job_timeout_minutes:
     description: 'Max time (minutes) this Github Action will wait for completion'
     required: false
@@ -44,7 +45,8 @@ runs:
           --jenkins_url="${{ inputs.jenkins_url }}" \
           --pipeline_token="${{ inputs.api_token }}" \
           --job_name="${{ inputs.job_name }}" \
-          --job_param="${{ inputs.job_param }}"
+          --job_params="${{ inputs.job_params }}"
+          --job_timeout_minutes="${{ inputs.job_timeout_minutes }}"
       shell: bash
 branding:
   icon: 'check-circle'
