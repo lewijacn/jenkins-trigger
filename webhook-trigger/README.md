@@ -20,5 +20,30 @@ pipenv run python3 default_webhook_trigger.py \
   --jenkins_url=<JENKINS_URL> \
   --pipeline_token=<JENKINS_TOKEN> \
   --job_name=<JOB_NAME> \
-  --job_param="GIT_REPO_URL=https://github.com/lewijacn/opensearch-migrations.git,GIT_BRANCH=main"
+  --job_params="GIT_REPO_URL=https://github.com/lewijacn/opensearch-migrations.git,GIT_BRANCH=main"
 ```
+
+### Running Unit Tests
+
+Install dependencies
+```shell
+pipenv install --deploy --dev
+```
+
+Run tests with coverage
+```shell
+pipenv run coverage run -m pytest --log-cli-level=INFO
+```
+
+Generate _code coverage_ metrics after a unit-test run. A report can either be printed on the command line:
+
+```shell
+pipenv run coverage report
+```
+
+or generated as HTML:
+
+```shell
+pipenv run coverage html
+```
+

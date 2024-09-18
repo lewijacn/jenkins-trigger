@@ -6,13 +6,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Run Action
-        id: get_square
         uses: ./ # Uses an action in the root directory
         with:
-          jenkins_url: 'https://test-jenkins-url'
+          jenkins_url: 'https://www.google.com'
           job_name: 'test-job'
           api_token: "${{ secrets.WEBHOOK_TOKEN }}"
-          job_param: "STAGE=dev"
+          job_params: "STAGE=dev"
           job_timeout_minutes: '2'
+  python-tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./webhook-trigger
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+      - run: |
+          python3 -m pip install --upgrade pipenv
+          pipenv install --deploy --dev
+          pipenv run coverage run -m pytest --log-cli-level=INFO
+          pipenv run coverage report

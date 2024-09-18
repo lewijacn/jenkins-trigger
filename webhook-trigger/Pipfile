@@ -7,5 +7,9 @@ name = "pypi"
 requests = "*"
 argparse = "*"
 
+[dev-packages]
+pytest = "*"
+coverage = "*"
+
 [requires]
 python_version = "3.11"

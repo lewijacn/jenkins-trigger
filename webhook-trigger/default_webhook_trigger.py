@@ -146,25 +146,29 @@ def trigger_and_wait_for_job(jenkins_url: str, pipeline_token: str, payload: dic
         raise e
 
 
-def parse_key_value(arg_string):
-    key, value = arg_string.split('=')
-    return key, value
+def parse_key_value_pairs(input_str):
+    kv_pairs = input_str.split(',')
+    kv_dict = {}
+    for pair in kv_pairs:
+        key, value = pair.split('=')
+        kv_dict[key] = value
+    return kv_dict
 
 
 def main():
     parser = argparse.ArgumentParser(description="Trigger a Jenkins workflow with a generic webhook.")
-    parser.add_argument("--pipeline_token", type=str, help="The token for authenticating with the Jenkins webhook.")
-    parser.add_argument("--jenkins_url", type=str, help="The Jenkins server URL.")
-    parser.add_argument("--job_name", type=str, help="The job name to trigger in Jenkins. This will "
-                                                     "automatically be added as a job_param.")
-    parser.add_argument('--job_param', action='append', type=parse_key_value, required=False,
-                        help="A job parameter to provide to a Jenkins workflow (format: key=value). Can be used "
-                             "multiple times")
+    parser.add_argument("--pipeline_token", type=str, help="The token for authenticating with the Jenkins generic webhook")
+    parser.add_argument("--jenkins_url", type=str, help="Jenkins URL including http/https protocol")
+    parser.add_argument("--job_name", type=str, help="The job name to trigger in Jenkins")
+    parser.add_argument('--job_params', type=parse_key_value_pairs, required=False,
+                        help='Job parameters, separated by a comma, to provide to a Jenkins workflow, e.g. '
+                             '"GIT_REPO_URL=https://github.com/lewijacn/opensearch-migrations.git,GIT_BRANCH=main". '
+                             'Job name will automatically be added as a parameter')
     parser.add_argument("--job_timeout_minutes", default=60, type=int,
-                        help="The amount of time in minutes to wait for job completion")
+                        help="Max time (minutes) this Github Action will wait for completion. Default is 60 minutes")
 
     args = parser.parse_args()
-    payload = dict(args.job_param) if args.job_param else {}
+    payload = args.job_params if args.job_params else {}
     payload['job_name'] = args.job_name
     logging.info(f"Using following payload for workflow trigger: {payload}")
 
