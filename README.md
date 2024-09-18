@@ -1,4 +1,4 @@
-# Jenkins Trigger
+# Jenkins Job Trigger and Monitor
 
 A Github Action to trigger Jenkins jobs and monitor for completion
 

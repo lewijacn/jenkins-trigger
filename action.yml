@@ -1,4 +1,4 @@
-name: 'Jenkins Trigger'
+name: 'Jenkins Job Trigger and Monitor'
 description: 'A Github Action to trigger Jenkins jobs and monitor for completion'
 inputs:
   jenkins_url:
