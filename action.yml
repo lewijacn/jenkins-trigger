@@ -25,14 +25,14 @@ runs:
       with:
         python-version: 3.11
     - name: Install dependencies for python webhook
-      working-directory: ./webhook-trigger
       run: |
+        cd webhook-trigger
         python3 -m pip install --upgrade pipenv
         pipenv install --deploy
       shell: bash
     - name: Trigger jenkins job and wait for completion
-      working-directory: ./webhook-trigger
       run: |
+        cd webhook-trigger
         if [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
           branch_name="${{ github.event.pull_request.head.ref }}"
           pr_repo_url="https://github.com/${{ github.event.pull_request.head.repo.full_name }}.git"
