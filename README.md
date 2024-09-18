@@ -25,13 +25,13 @@ jobs:
 ```
 
 ## Inputs
-| Name                | Required | Example                                                                                | Description                                                                                                                  |
-|---------------------|----------|----------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------|
-| jenkins_url         | `true`   | `"https://my-jenkins-server.com"`                                                      | Jenkins URL including http/https protocol                                                                                    |
-| job_name            | `true`   | `"test-job"`                                                                           | The job name to trigger in Jenkins                                                                                           |
-| api_token           | `true`   | `"jenkins-token"`                                                                      | The token for authenticating with the Jenkins generic webhook                                                                |
-| job_params          | false    | `"GIT_REPO_URL=https://github.com/lewijacn/opensearch-migrations.git,GIT_BRANCH=main"` | Job parameters, separated by a comma, to provide to a Jenkins workflow. Job name will automatically be added as a parameter. |
-| job_timeout_minutes | false    | 10                                                                                     | Max time (minutes) this Github Action will wait for completion. Default is 60 minutes                                        |
+| Name                | Required | Description                                                                                                                                                                                                                   |
+|---------------------|----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| jenkins_url         | `true`   | Jenkins URL including http/https protocol                                                                                                                                                                                     |
+| job_name            | `true`   | The job name to trigger in Jenkins                                                                                                                                                                                            |
+| api_token           | `true`   | The token for authenticating with the Jenkins generic webhook                                                                                                                                                                 |
+| job_params          | false    | Job parameters, separated by a comma, to provide to a Jenkins workflow. Job name will automatically be added as a parameter.<br/> e.g. `"GIT_REPO_URL=https://github.com/lewijacn/opensearch-migrations.git,GIT_BRANCH=main"` |
+| job_timeout_minutes | false    | Max time (minutes) this Github Action will wait for completion. Default is 60 minutes                                                                                                                                         |
 
 # Changelog
 
