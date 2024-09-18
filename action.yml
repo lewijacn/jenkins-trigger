@@ -21,6 +21,12 @@ inputs:
 runs:
   using: "docker"
   image: "Dockerfile"
+  args:
+    - ${{ inputs.jenkins_url }}
+    - ${{ inputs.api_token }}
+    - ${{ inputs.job_name }}
+    - ${{ inputs.job_params }}
+    - ${{ inputs.job_timeout_minutes }}
 
 branding:
   icon: 'check-circle'
