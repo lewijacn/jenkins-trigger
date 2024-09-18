@@ -1,6 +1,7 @@
 #!/bin/bash
 
 printenv
+pipenv run pip list
 
 if [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
   branch_name="${{ github.event.pull_request.head.ref }}"
