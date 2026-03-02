@@ -11,7 +11,7 @@ inputs:
     description: 'The job name to trigger in Jenkins'
     required: true
   job_params:
-    description: 'Job parameters, separated by a comma, to provide to a Jenkins workflow, e.g. "GIT_REPO_URL=https://github.com/lewijacn/opensearch-migrations.git,GIT_BRANCH=main". Job name will automatically be added as a parameter.'
+    description: 'Job parameters, separated by a comma, to provide to a Jenkins workflow, e.g. "GIT_REPO_URL=https://github.com/opensearch-project/opensearch-migrations.git,GIT_BRANCH=main". Job name will automatically be added as a parameter.'
     required: false
     default: ""
   job_timeout_minutes:

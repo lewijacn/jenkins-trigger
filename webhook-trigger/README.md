@@ -20,7 +20,7 @@ pipenv run python3 default_webhook_trigger.py \
   --jenkins_url=<JENKINS_URL> \
   --pipeline_token=<JENKINS_TOKEN> \
   --job_name=<JOB_NAME> \
-  --job_params="GIT_REPO_URL=https://github.com/lewijacn/opensearch-migrations.git,GIT_BRANCH=main"
+  --job_params="GIT_REPO_URL=https://github.com/jugal-chauhan/opensearch-migrations.git,GIT_BRANCH=main"
 ```
 
 ### Running Unit Tests

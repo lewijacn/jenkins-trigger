@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Jenkins Job Trigger and Monitor
-        uses: lewijacn/jenkins-trigger@1.0.4
+        uses: jugal-chauhan/jenkins-trigger@1.0.6
         with:
           jenkins_url: 'https://test-jenkins-url'
           job_name: 'test-job'
@@ -52,13 +52,13 @@ Executing jenkins webhook trigger for url: https://test.ci.org and job: main-int
 ```
 
 ## Inputs
-| Name                | Required | Description                                                                                                                                                                                                                   |
-|---------------------|----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| jenkins_url         | `true`   | Jenkins URL including http/https protocol                                                                                                                                                                                     |
-| job_name            | `true`   | The job name to trigger in Jenkins                                                                                                                                                                                            |
-| api_token           | `true`   | The token for authenticating with the Jenkins generic webhook                                                                                                                                                                 |
-| job_params          | false    | Job parameters, separated by a comma, to provide to a Jenkins workflow. Job name will automatically be added as a parameter.<br/> e.g. `"GIT_REPO_URL=https://github.com/lewijacn/opensearch-migrations.git,GIT_BRANCH=main"` |
-| job_timeout_minutes | false    | Max time (minutes) this Github Action will wait for completion. Default is 60 minutes                                                                                                                                         |
+| Name                | Required | Description                                                                                                                                                                                                                        |
+|---------------------|----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| jenkins_url         | `true`   | Jenkins URL including http/https protocol                                                                                                                                                                                          |
+| job_name            | `true`   | The job name to trigger in Jenkins                                                                                                                                                                                                 |
+| api_token           | `true`   | The token for authenticating with the Jenkins generic webhook                                                                                                                                                                      |
+| job_params          | false    | Job parameters, separated by a comma, to provide to a Jenkins workflow. Job name will automatically be added as a parameter.<br/> e.g. `"GIT_REPO_URL=https://github.com/jugal-chauhan/opensearch-migrations.git,GIT_BRANCH=main"` |
+| job_timeout_minutes | false    | Max time (minutes) this Github Action will wait for completion. Default is 60 minutes                                                                                                                                              |
 
 # Changelog
 

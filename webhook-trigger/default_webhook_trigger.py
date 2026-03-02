@@ -41,7 +41,12 @@ def wait_for_job_completion(jenkins_url: str, trigger_job_response_body: dict, j
     workflow_url = None
 
     # Parse Jenkins request and get the queue URL
-    queue_url = trigger_job_response_body.get("jobs", {}).get(job_name, {}).get("url", None)
+    queue_url = None
+    for key, job_info in trigger_job_response_body.get("jobs", {}).items():
+        if job_info.get("triggered") is True:
+            queue_url = job_info.get("url") or None
+            break
+
     logging.info(f"Detected jenkins queue_url: {queue_url}")
     if not queue_url:
         raise RuntimeError(f"Unable to determine queue_url for job: {job_name}")
@@ -171,7 +176,7 @@ def main():
     parser.add_argument("--job_name", type=str, help="The job name to trigger in Jenkins")
     parser.add_argument('--job_params', type=parse_key_value_pairs, required=False,
                         help='Job parameters, separated by a comma, to provide to a Jenkins workflow, e.g. '
-                             '"GIT_REPO_URL=https://github.com/lewijacn/opensearch-migrations.git,GIT_BRANCH=main". '
+                             '"GIT_REPO_URL=https://github.com/jugal-chauhan/opensearch-migrations.git,GIT_BRANCH=main". '
                              'Job name will automatically be added as a parameter')
     parser.add_argument("--job_timeout_minutes", default=60, type=int,
                         help="Max time (minutes) this Github Action will wait for completion. Default is 60 minutes")
